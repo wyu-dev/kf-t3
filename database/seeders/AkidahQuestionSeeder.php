@@ -587,3 +587,4 @@ class AkidahQuestionSeeder extends Seeder
         }
     }
 }
+
