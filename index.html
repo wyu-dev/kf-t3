@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="">
+    <title>Latih Tubi Akidah Tahun 3 | Pendidikan Islam</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti for celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.1), 0 8px 10px -6px rgba(5, 150, 105, 0.1);
+        }
+        .bounce-subtle {
+            animation: bounceSubtle 2s infinite ease-in-out;
+        }
+        @keyframes bounceSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-teal-50 to-slate-100 min-h-screen text-slate-800 antialiased font-sans flex flex-col justify-between">
+
+    <!-- Top Navigation / Brand -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-200 font-bold text-xl">
+                    ☪
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-slate-800 text-lg leading-tight flex items-center gap-2">
+                        Akidah Tahun 3 <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-emerald-200">KSSR Semakan</span>
+                    </h1>
+                    <p class="text-xs text-slate-500">Latih Tubi Interaktif • 5 Topik Utama</p>
+                </div>
+            </div>
+
+            <!-- Header Controls & Sound Toggle -->
+            <div class="flex items-center space-x-3">
+                <button id="soundToggleBtn" onclick="toggleAudio()" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center gap-1.5 transition">
+                    <span id="soundIcon">🔊</span>
+                    <span id="soundText" class="hidden sm:inline">Bunyi Aktif</span>
+                </button>
+                <a href="#bankSoalan" class="text-xs text-emerald-700 hover:text-emerald-900 font-semibold px-2 py-1 hidden sm:inline">
+                    Ringkasan Topik
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow">
+
+        <!-- SCREEN 1: WELCOME & GENERATE QUIZ SCREEN -->
+        <section id="welcomeScreen" class="space-y-8">
+            <!-- Hero Card -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 text-white p-6 sm:p-10 shadow-xl shadow-emerald-900/10">
+                <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600/60 backdrop-blur-md text-emerald-200 border border-emerald-400/30 text-xs font-semibold uppercase tracking-wider mb-4">
+                        📖 Ujian Penilaian Kendiri Murid
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-snug">
+                        Sedia Menguji Kefahaman <br class="hidden sm:block">Akidah Anda Hari Ini?
+                    </h2>
+                    <p class="mt-3 text-emerald-100 text-sm sm:text-base leading-relaxed">
+                        Sistem mengandungi <strong>50 soalan</strong> daripada 5 topik (5 Aras Rendah, 3 Sederhana, 2 Tinggi bagi setiap topik).
+                        Klik butang di bawah untuk menjana <strong>30 soalan rawak</strong> merangkumi kesemua topik.
+                    </p>
+
+                    <!-- Target Badge -->
+                    <div class="mt-4 inline-flex items-center gap-2 bg-amber-400/20 border border-amber-300/40 text-amber-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold">
+                        🎯 Sasaran Kejayaan: <span class="text-white font-extrabold">80% (24 / 30 betul)</span>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <div class="mt-8 flex flex-wrap items-center gap-4">
+                        <button id="btnJanaLatihan" onclick="startQuiz()" class="bounce-subtle bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-lg shadow-amber-500/30 flex items-center gap-3 transition transform hover:scale-105 active:scale-95 cursor-pointer">
+                            <span class="text-2xl">⚡</span>
+                            <span>Jana Latihan</span>
+                        </button>
+                        <span class="text-xs text-emerald-200 flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Pilihan rawak & seimbang dari 5 topik
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Topics Overview Cards -->
+            <div id="bankSoalan" class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <span>📚</span> 5 Topik Akidah Tahun 3
+                    </h3>
+                    <span class="text-xs font-semibold text-slate-500 bg-slate-200/60 px-2.5 py-1 rounded-full">
+                        Jumlah Bank: 50 Soalan
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Topik 1 -->
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center justify-center">1</span>
+                            <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">10 Soalan</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base">Beriman kepada Kitab</h4>
+                        <p class="text-xs text-slate-600 mt-1 line-clamp-2">Pengertian, 4 kitab utama & rasul penerima, peranan Al-Quran, dan adab memuliakan Al-Quran.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <span class="text-emerald-600 font-semibold">● 5 Rendah</span>
+                            <span class="text-amber-600 font-semibold">● 3 Sederhana</span>
+                            <span class="text-purple-600 font-semibold">● 2 Tinggi</span>
+                        </div>
+                    </div>
+
+                    <!-- Topik 2 -->
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-800 text-xs font-bold flex items-center justify-center">2</span>
+                            <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">10 Soalan</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base">Beriman kepada Hari Kiamat</h4>
+                        <p class="text-xs text-slate-600 mt-1 line-clamp-2">Rukun Iman ke-5, hukum Fardu Ain, tanda kecil & tanda besar kiamat, serta pembentukan keperibadian.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <span class="text-emerald-600 font-semibold">● 5 Rendah</span>
+                            <span class="text-amber-600 font-semibold">● 3 Sederhana</span>
+                            <span class="text-purple-600 font-semibold">● 2 Tinggi</span>
+                        </div>
+                    </div>
+
+                    <!-- Topik 3 -->
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-800 text-xs font-bold flex items-center justify-center">3</span>
+                            <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">10 Soalan</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base">Mukhalafatu Lil Hawadith</h4>
+                        <p class="text-xs text-slate-600 mt-1 line-clamp-2">Allah berbeza dengan makhluk, dalil Surah As-Syura:11, dalil aqli, dan larangan menyembah patung/lukisan.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <span class="text-emerald-600 font-semibold">● 5 Rendah</span>
+                            <span class="text-amber-600 font-semibold">● 3 Sederhana</span>
+                            <span class="text-purple-600 font-semibold">● 2 Tinggi</span>
+                        </div>
+                    </div>
+
+                    <!-- Topik 4 -->
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold flex items-center justify-center">4</span>
+                            <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">10 Soalan</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base">Qiyamuhu Binafsih</h4>
+                        <p class="text-xs text-slate-600 mt-1 line-clamp-2">Allah berdiri dengan sendiri tanpa bantuan sesiapa, dalil Surah Al-Ankabut:6, dan amalan tawakkal serta tawaduk.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <span class="text-emerald-600 font-semibold">● 5 Rendah</span>
+                            <span class="text-amber-600 font-semibold">● 3 Sederhana</span>
+                            <span class="text-purple-600 font-semibold">● 2 Tinggi</span>
+                        </div>
+                    </div>
+
+                    <!-- Topik 5 -->
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition md:col-span-2 lg:col-span-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-orange-100 text-orange-800 text-xs font-bold flex items-center justify-center">5</span>
+                            <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">10 Soalan</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base">Islam dan Sains (Haiwan)</h4>
+                        <p class="text-xs text-slate-600 mt-1 line-clamp-2">Ciptaan haiwan membuktikan nama Allah Al-Khaliq; keajaiban lebah, burung, ikan, semut & amalan tafakur.</p>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                            <span class="text-emerald-600 font-semibold">● 5 Rendah</span>
+                            <span class="text-amber-600 font-semibold">● 3 Sederhana</span>
+                            <span class="text-purple-600 font-semibold">● 2 Tinggi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: ACTIVE QUIZ SCREEN (30 QUESTIONS) -->
+        <section id="quizScreen" class="hidden space-y-6">
+            <!-- Sticky Quiz Header & Progress Bar -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3">
+                        <span id="currentQuestionBadge" class="bg-emerald-600 text-white font-extrabold text-sm px-3.5 py-1.5 rounded-xl shadow-sm">
+                            Soalan 1 / 30
+                        </span>
+                        <span id="topicBadge" class="text-xs font-bold text-slate-600 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
+                            Topik
+                        </span>
+                        <span id="difficultyBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full">
+                            Aras
+                        </span>
+                    </div>
+
+                    <!-- Live Tally & Score Counter -->
+                    <div class="flex items-center space-x-3 text-xs sm:text-sm font-bold">
+                        <div class="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-lg">
+                            <span>✅ Betul:</span>
+                            <span id="tallyCorrect">0</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1 rounded-lg">
+                            <span>❌ Salah:</span>
+                            <span id="tallyWrong">0</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg hidden sm:flex">
+                            <span>Sasaran: 80% (≥24)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="quizProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2.5 rounded-full transition-all duration-300" style="width: 3.33%"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-[11px] text-slate-400 mt-1">
+                        <span id="answeredStatusText">0 daripada 30 soalan dijawab</span>
+                        <span id="currentScorePercentageText">Ketepatan Semasa: 0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 custom-shadow space-y-6">
+                <!-- Question Type Tag -->
+                <div class="flex items-center justify-between">
+                    <span id="typeBadge" class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1 rounded-lg">
+                        Jenis Soalan
+                    </span>
+                    <span class="text-xs text-slate-400">Pilih satu jawapan yang betul</span>
+                </div>
+
+                <!-- Question Text -->
+                <div class="min-h-[70px] flex items-center">
+                    <h3 id="questionText" class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-relaxed">
+                        Memuatkan soalan...
+                    </h3>
+                </div>
+
+                <!-- Options Container (Dynamically Rendered: Objective / TrueFalse / FillBlank) -->
+                <div id="optionsContainer" class="space-y-3">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Interactive Feedback Card (Revealed on Answer) -->
+                <div id="feedbackCard" class="hidden rounded-2xl p-5 border transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <div id="feedbackIcon" class="text-3xl flex-shrink-0">
+                            <!-- Icon -->
+                        </div>
+                        <div class="flex-grow space-y-2">
+                            <h4 id="feedbackTitle" class="text-lg font-extrabold">
+                                <!-- Title -->
+                            </h4>
+                            <div id="feedbackExplanation" class="text-sm leading-relaxed">
+                                <!-- Explanation & Reason -->
+                            </div>
+                            <div id="feedbackCorrectAnswerWrap" class="text-sm font-semibold hidden pt-1">
+                                <span class="text-slate-600">Jawapan yang tepat: </span>
+                                <span id="feedbackCorrectAnswerText" class="text-emerald-700 font-extrabold bg-emerald-100/70 px-2 py-0.5 rounded border border-emerald-300"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button id="btnPrev" onclick="navigateQuestion(-1)" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 font-bold text-sm flex items-center gap-2 transition disabled:opacity-30 disabled:pointer-events-none">
+                        <span>⬅️</span>
+                        <span>Soalan Sebelumnya</span>
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button id="btnNext" onclick="navigateQuestion(1)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm px-6 py-2.5 rounded-xl shadow-md shadow-emerald-600/20 flex items-center gap-2 transition">
+                            <span id="btnNextText">Soalan Seterusnya</span>
+                            <span>➡️</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Numbers Navigator Grid (1 to 30) -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        🧭 Navigasi 30 Soalan
+                    </span>
+                    <div class="flex items-center gap-3 text-[11px] font-semibold text-slate-500">
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Betul</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> Salah</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-200 inline-block"></span> Belum Jawab</span>
+                    </div>
+                </div>
+                <div id="navigatorGrid" class="grid grid-cols-6 sm:grid-cols-10 md:grid-cols-15 gap-2">
+                    <!-- 30 buttons generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: RESULTS & SCORE SCREEN (>= 80% TARGET CHECK) -->
+        <section id="resultScreen" class="hidden max-w-2xl mx-auto space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 custom-shadow text-center space-y-6">
+                <!-- Result Icon / Badge -->
+                <div id="resultIconWrapper" class="w-24 h-24 mx-auto rounded-3xl flex items-center justify-center text-5xl shadow-lg">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- Result Title -->
+                <div class="space-y-2">
+                    <span id="resultTargetPill" class="inline-block text-xs font-extrabold uppercase px-3 py-1 rounded-full">
+                        Sasaran: 80%
+                    </span>
+                    <h2 id="resultTitle" class="text-3xl font-extrabold text-slate-800">
+                        Keputusan Penilaian
+                    </h2>
+                    <p id="resultSubtitle" class="text-slate-600 text-sm max-w-md mx-auto">
+                        <!-- Message -->
+                    </p>
+                </div>
+
+                <!-- Score Board Card -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 grid grid-cols-3 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-slate-500 block uppercase">Skor Keseluruhan</span>
+                        <span id="resTotalCorrect" class="text-3xl sm:text-4xl font-extrabold text-slate-800">0</span>
+                        <span class="text-xs font-semibold text-slate-400">/ 30 soalan</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-slate-500 block uppercase">Peratusan</span>
+                        <span id="resPercentage" class="text-3xl sm:text-4xl font-extrabold text-emerald-600">0%</span>
+                        <span class="text-xs font-semibold text-slate-400">Sasaran ≥ 80%</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-slate-500 block uppercase">Gred Pencapaian</span>
+                        <span id="resGrade" class="text-3xl sm:text-4xl font-extrabold text-amber-500">-</span>
+                        <span id="resGradeDesc" class="text-xs font-semibold text-slate-400">Penilaian</span>
+                    </div>
+                </div>
+
+                <!-- Breakdown by Topic -->
+                <div class="text-left space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                        Prestasi Mengikut Topik
+                    </h4>
+                    <div id="topicBreakdownContainer" class="space-y-2">
+                        <!-- Topic breakdown rows generated by JS -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons: Cuba Lagi / Semak Semula -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="startQuiz()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-3.5 rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition cursor-pointer">
+                        <span>🔄</span>
+                        <span id="btnTryAgainText">Cuba Lagi (Set Soalan Lain)</span>
+                    </button>
+                    <button onclick="reviewAllAnswers()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold px-6 py-3.5 rounded-xl transition cursor-pointer">
+                        <span>📋</span>
+                        <span>Semak Semua 30 Jawapan</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 space-y-1">
+            <p class="font-semibold text-slate-700">Latih Tubi Akidah Tahun 3 • Pendidikan Islam KSSR Semakan</p>
+            <p>50 Soalan Komprehensif • 5 Topik Utama • Bank Soalan Aras Rendah, Sederhana & Tinggi</p>
+            <p class="text-slate-400 text-[11px] pt-1">Sedia untuk dihoskan di GitHub & GitHub Pages</p>
+        </div>
+    </footer>
+
+    <!-- Pass backend initial data safely -->
+    <script>
+        window.ALL_QUESTIONS_BANK = [
+    {
+        "id": 1,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Beriman kepada kitab-kitab Allah merupakan Rukun Iman yang ke-...",
+        "options": [
+            "Ketiga",
+            "Keempat",
+            "Kelima"
+        ],
+        "correct_answer": "Ketiga",
+        "explanation": "Beriman kepada Kitab ialah Rukun Iman yang ke-3 selepas beriman kepada Allah dan beriman kepada Malaikat."
+    },
+    {
+        "id": 2,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Berapakah jumlah kitab suci utama yang wajib diketahui oleh setiap orang Islam?",
+        "options": [
+            "4 buah kitab",
+            "10 buah kitab",
+            "25 buah kitab"
+        ],
+        "correct_answer": "4 buah kitab",
+        "explanation": "Terdapat 4 buah kitab suci utama yang wajib kita ketahui iaitu Taurat, Zabur, Injil dan Al-Quran."
+    },
+    {
+        "id": 3,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Kitab Taurat telah diturunkan oleh Allah SWT kepada Nabi Musa a.s.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Kitab Taurat diwahyukan kepada Nabi Musa a.s. sebagai pedoman kaum Bani Israil pada zamannya."
+    },
+    {
+        "id": 4,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Kitab Zabur diturunkan oleh Allah SWT kepada Nabi ...",
+        "options": [
+            "Nabi Daud a.s.",
+            "Nabi Isa a.s.",
+            "Nabi Adam a.s."
+        ],
+        "correct_answer": "Nabi Daud a.s.",
+        "explanation": "Kitab Zabur diturunkan secara khusus kepada Nabi Daud a.s."
+    },
+    {
+        "id": 5,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "fill_in_the_blank",
+        "question_text": "Kitab suci terakhir yang diturunkan kepada Nabi Muhammad s.a.w. ialah ________.",
+        "options": [
+            "Al-Quran",
+            "Injil",
+            "Taurat"
+        ],
+        "correct_answer": "Al-Quran",
+        "explanation": "Al-Quran merupakan mukjizat agung dan kitab suci terakhir yang diwahyukan kepada Nabi Muhammad s.a.w. untuk seluruh umat manusia."
+    },
+    {
+        "id": 6,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "objective",
+        "question_text": "Antara peranan Al-Quran dalam kehidupan seharian ialah sebagai \"penyembuh hati\". Apakah maksud peranan tersebut?",
+        "options": [
+            "Membaca dan menghayati Al-Quran mendatangkan ketenangan jiwa",
+            "Al-Quran hanya disimpan di dalam almari perubatan",
+            "Al-Quran menggantikan ubat hospital secara mutlak"
+        ],
+        "correct_answer": "Membaca dan menghayati Al-Quran mendatangkan ketenangan jiwa",
+        "explanation": "Al-Quran menjadi penyembuh hati (syifa') kerana bacaannya memberikan ketenangan, motivasi dan kedamaian jiwa kepada orang beriman."
+    },
+    {
+        "id": 7,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "true_false",
+        "question_text": "Kitab Injil diturunkan oleh Allah kepada Nabi Isa a.s. sebagai panduan hidup kaumnya.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Nabi Isa a.s. menerima Kitab Injil sebelum diangkat ke langit."
+    },
+    {
+        "id": 8,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "fill_in_the_blank",
+        "question_text": "Al-Quran membenarkan intipati kitab terdahulu dan ________ hukum-hukum syariat yang sudah tidak lagi relevan.",
+        "options": [
+            "memansuhkan",
+            "mengabaikan",
+            "memusnahkan"
+        ],
+        "correct_answer": "memansuhkan",
+        "explanation": "Al-Quran menyempurnakan ajaran terdahulu dan memansuhkan hukum syariat terdahulu yang khusus untuk zaman lampau."
+    },
+    {
+        "id": 9,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Ahmad sentiasa membaca Al-Quran dengan bertajwid serta berusaha memahami maksud ayat untuk diamalkan. Tindakan Ahmad membuktikan...",
+        "options": [
+            "Sikap mencintai dan memuliakan Al-Quran sebagai panduan hidup",
+            "Sikap menunjuk-nunjuk kemahiran membaca di hadapan rakan",
+            "Amalan membaca semata-mata untuk lulus peperiksaan sekolah"
+        ],
+        "correct_answer": "Sikap mencintai dan memuliakan Al-Quran sebagai panduan hidup",
+        "explanation": "Membaca dengan tartil\/tajwid dan mengamalkan ajaran Al-Quran adalah bukti nyata seseorang benar-benar mencintai Al-Quran."
+    },
+    {
+        "id": 10,
+        "topic_id": 1,
+        "topic_title": "Beriman kepada Kitab",
+        "topic_number": 1,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Mengapakah umat Islam wajib beriman kepada semua kitab suci terdahulu walaupun hanya mengamalkan syariat Al-Quran?",
+        "options": [
+            "Kerana semua kitab tersebut asalnya diturunkan oleh Allah SWT kepada rasul-Nya",
+            "Kerana semua kitab tersebut ditulis dalam bahasa Arab yang sama",
+            "Kerana isi kandungan semua kitab tidak mempunyai sebarang perbezaan syariat"
+        ],
+        "correct_answer": "Kerana semua kitab tersebut asalnya diturunkan oleh Allah SWT kepada rasul-Nya",
+        "explanation": "Kita wajib meyakini asal usul ketuhanan semua kitab suci tersebut (wahyu Allah), manakala Al-Quran menyempurnakan hukum-hakam untuk akhir zaman."
+    },
+    {
+        "id": 11,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Beriman kepada Hari Kiamat merupakan Rukun Iman yang ke-...",
+        "options": [
+            "Kelima",
+            "Ketiga",
+            "Keenam"
+        ],
+        "correct_answer": "Kelima",
+        "explanation": "Beriman kepada Hari Kiamat atau hari akhirat adalah Rukun Iman ke-5."
+    },
+    {
+        "id": 12,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Apakah hukum beriman kepada Hari Kiamat bagi setiap orang Islam?",
+        "options": [
+            "Fardu Ain (Wajib)",
+            "Fardu Kifayah",
+            "Sunat Muakkad"
+        ],
+        "correct_answer": "Fardu Ain (Wajib)",
+        "explanation": "Hukum beriman kepada Hari Kiamat ialah Fardu Ain, iaitu wajib atas setiap individu Muslim."
+    },
+    {
+        "id": 13,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Hari Kiamat bermaksud hari berakhirnya seluruh kehidupan di alam dunia dan manusia dihisab.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Pada hari kiamat dunia akan hancur dan semua manusia dibangkitkan semula di Padang Mahsyar."
+    },
+    {
+        "id": 14,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Sesiapa yang mengingkari dan menafikan kewujudan Hari Kiamat boleh menjadi kafir (keluar dari Islam).",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Mengingkari mana-mana rukun iman membatalkan keislaman seseorang."
+    },
+    {
+        "id": 15,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "fill_in_the_blank",
+        "question_text": "Hari berakhirnya seluruh alam dan kehidupan di dunia dipanggil Hari ________.",
+        "options": [
+            "Kiamat",
+            "Keraian",
+            "Rehat"
+        ],
+        "correct_answer": "Kiamat",
+        "explanation": "Hari Kiamat ialah hari kehancuran alam semesta mengikut kehendak dan ketetapan Allah SWT."
+    },
+    {
+        "id": 16,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "objective",
+        "question_text": "Antara berikut, peristiwa manakah yang dikategorikan sebagai tanda kecil Hari Kiamat?",
+        "options": [
+            "Ilmu agama diangkat dan maksiat berleluasa",
+            "Matahari terbit dari sebelah barat",
+            "Keluarnya Dabbatul Ardh (binatang bumi)"
+        ],
+        "correct_answer": "Ilmu agama diangkat dan maksiat berleluasa",
+        "explanation": "Kematian para ulama (ilmu diangkat) dan maksiat berleluasa adalah tanda-tanda kecil kiamat. Matahari terbit dari barat dan keluarnya Dabbatul Ardh pula adalah tanda-tanda besar."
+    },
+    {
+        "id": 17,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "true_false",
+        "question_text": "Kemunculan Dajjal dan turunnya Nabi Isa a.s. merupakan tanda-tanda kecil Hari Kiamat.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Salah",
+        "explanation": "Salah. Kemunculan Dajjal dan turunnya Nabi Isa a.s. adalah Tanda-tanda Besar Hari Kiamat."
+    },
+    {
+        "id": 18,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "fill_in_the_blank",
+        "question_text": "Antara tanda besar kiamat ialah matahari terbit dari sebelah ________.",
+        "options": [
+            "barat",
+            "timur",
+            "selatan"
+        ],
+        "correct_answer": "barat",
+        "explanation": "Apabila matahari terbit dari barat, pintu taubat telah ditutup secara rasmi bagi seluruh manusia."
+    },
+    {
+        "id": 19,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Haziq berpeluang meniru dalam peperiksaan tanpa dilihat guru, namun dia tidak melakukannya. Apakah kaitan tindakannya dengan keimanan kepada Hari Kiamat?",
+        "options": [
+            "Dia yakin setiap amalannya disaksikan Allah dan akan dihisab pada hari pembalasan",
+            "Dia takut rakan sebelahnya akan meminjam pemadamnya",
+            "Dia malas menulis jawapan yang ditiru"
+        ],
+        "correct_answer": "Dia yakin setiap amalannya disaksikan Allah dan akan dihisab pada hari pembalasan",
+        "explanation": "Keyakinan kepada Hari Akhirat mendidik jiwa murid agar sentiasa amanah, jujur dan menjauhi maksiat walaupun tiada manusia melihat."
+    },
+    {
+        "id": 20,
+        "topic_id": 2,
+        "topic_title": "Beriman kepada Hari Kiamat",
+        "topic_number": 2,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Bagaimanakah penghayatan Hari Kiamat mendidik seorang murid daripada bersikap tamak terhadap harta dunia?",
+        "options": [
+            "Dia sedar bahawa harta dunia hanya pinjaman sementara dan amalan soleh yang kekal di akhirat",
+            "Dia membuang semua wang simpanannya ke dalam tong sampah",
+            "Dia berhenti makan dan minum kerana dunia akan musnah"
+        ],
+        "correct_answer": "Dia sedar bahawa harta dunia hanya pinjaman sementara dan amalan soleh yang kekal di akhirat",
+        "explanation": "Orang beriman menggunakan harta untuk kebaikan dan sedekah, tidak tamak haloba kerana menyedari akhirat adalah matlamat yang kekal."
+    },
+    {
+        "id": 21,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Apakah erti sifat Mukhalafatu Lil Hawadith bagi Allah SWT?",
+        "options": [
+            "Berbeza dengan segala yang baharu (makhluk)",
+            "Sama seperti manusia dan alam sekitar",
+            "Memerlukan bantuan makhluk untuk hidup"
+        ],
+        "correct_answer": "Berbeza dengan segala yang baharu (makhluk)",
+        "explanation": "Mukhalafatu Lil Hawadith bererti Allah Maha Berbeza dan tiada suatu pun yang serupa dengan-Nya."
+    },
+    {
+        "id": 22,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "fill_in_the_blank",
+        "question_text": "Mukhalafatu Lil Hawadith tergolong dalam sifat ________ bagi Allah SWT.",
+        "options": [
+            "Wajib",
+            "Mustahil",
+            "Harus"
+        ],
+        "correct_answer": "Wajib",
+        "explanation": "Sifat Mukhalafatu Lil Hawadith ialah salah satu daripada 20 sifat Wajib bagi Allah (sifat ke-4)."
+    },
+    {
+        "id": 23,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Allah SWT mempunyai bentuk fizikal, bertangan dan berkaki sama seperti manusia.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Salah",
+        "explanation": "Salah. Allah Maha Suci daripada memiliki tubuh badan bendawi, anggota atau rupa fizikal seperti manusia."
+    },
+    {
+        "id": 24,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Surah As-Syura ayat 11 menegaskan bahawa tiada sesuatu pun yang serupa dengan Allah SWT.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Firman Allah: \"Laisa kamitslihi syai'un\" yang bermaksud tiada sesuatupun yang serupa dengan-Nya."
+    },
+    {
+        "id": 25,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Lawan bagi sifat Mukhalafatu Lil Hawadith ialah Mumathalatuhu Lil Hawadith yang bermaksud ...",
+        "options": [
+            "Menyerupai makhluk",
+            "Mendengar bisikan",
+            "Berkuasa penuh"
+        ],
+        "correct_answer": "Menyerupai makhluk",
+        "explanation": "Sifat mustahil bagi Allah ialah Mumathalatuhu Lil Hawadith (bersamaan\/menyerupai makhluk)."
+    },
+    {
+        "id": 26,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "objective",
+        "question_text": "Mengikut dalil aqli (akal fikiran), sekiranya Allah SWT sama seperti makhluk, ini membuktikan bahawa Allah...",
+        "options": [
+            "Mempunyai kelemahan, had umur dan kekurangan",
+            "Lebih perkasa daripada segala-galanya",
+            "Mampu menjelajah seluruh alam"
+        ],
+        "correct_answer": "Mempunyai kelemahan, had umur dan kekurangan",
+        "explanation": "Makhluk mempunyai sifat lapar, letih, mati dan terhad. Jika Tuhan menyerupai makhluk, maka Tuhan juga lemah, dan ini mustahil bagi Tuhan."
+    },
+    {
+        "id": 27,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "true_false",
+        "question_text": "Orang yang benar-benar memahami sifat Mukhalafatu Lil Hawadith tidak akan sesekali menyembah patung atau lukisan berhala.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Kerana Allah Maha Berbeza daripada sebarang bentuk patung atau gambaran imaginasi akal manusia."
+    },
+    {
+        "id": 28,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "fill_in_the_blank",
+        "question_text": "Sifat baharu seperti penat, tidur, lapar dan binasa hanya wujud pada diri ________.",
+        "options": [
+            "makhluk",
+            "Tuhan",
+            "pencipta"
+        ],
+        "correct_answer": "makhluk",
+        "explanation": "Hanya makhluk yang diciptakan mempunyai sifat baharu, manakala Allah Maha Qadim dan Maha Sempurna."
+    },
+    {
+        "id": 29,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Seorang murid bertanya: \"Bolehkah kita membayangkan atau melukis rupa bentuk Allah SWT?\". Jawapan terbaik berdasarkan akidah Islam ialah...",
+        "options": [
+            "Tidak boleh sama sekali, kerana akal manusia terbatas dan Allah tidak menyerupai apa-apa makhluk",
+            "Boleh, sekiranya menggunakan warna putih dan cahaya",
+            "Boleh dilukis mengikut imaginasi masing-masing"
+        ],
+        "correct_answer": "Tidak boleh sama sekali, kerana akal manusia terbatas dan Allah tidak menyerupai apa-apa makhluk",
+        "explanation": "Allah tidak boleh dibayangkan atau digambarkan kerana apa sahaja yang terlintas di fikiran manusia, Allah berbeza sama sekali daripadanya."
+    },
+    {
+        "id": 30,
+        "topic_id": 3,
+        "topic_title": "Sifat Mukhalafatu Lil Hawadith",
+        "topic_number": 3,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Bagaimanakah kefahaman sifat Mukhalafatu Lil Hawadith melindungi akidah seseorang daripada bahaya syirik?",
+        "options": [
+            "Menyedari bahawa tiada makhluk yang setanding atau memiliki sifat ketuhanan seperti Allah",
+            "Menjadikan seseorang tidak mahu menghormati sesama manusia",
+            "Membuatkan seseorang berasa ragu-ragu dengan kebesaran alam semesta"
+        ],
+        "correct_answer": "Menyedari bahawa tiada makhluk yang setanding atau memiliki sifat ketuhanan seperti Allah",
+        "explanation": "Dengan meyakini keunikan mutlak zat Allah, hati manusia terpelihara daripada memuja, menyembah atau menyamakan makhluk dengan Allah."
+    },
+    {
+        "id": 31,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Apakah maksud sifat Qiyamuhu Binafsih bagi Allah SWT?",
+        "options": [
+            "Allah berdiri dengan sendiri-Nya tanpa memerlukan bantuan sesiapa",
+            "Allah memerlukan bantuan para malaikat untuk mencipta bumi",
+            "Allah berpindah dari satu tempat ke tempat yang lain"
+        ],
+        "correct_answer": "Allah berdiri dengan sendiri-Nya tanpa memerlukan bantuan sesiapa",
+        "explanation": "Qiyamuhu Binafsih bermaksud Allah wujud dengan sendiri, tidak berhajat kepada tempat mahupun pembantu."
+    },
+    {
+        "id": 32,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "fill_in_the_blank",
+        "question_text": "Qiyamuhu Binafsih merupakan sifat ________ bagi Allah SWT.",
+        "options": [
+            "Wajib",
+            "Mustahil",
+            "Harus"
+        ],
+        "correct_answer": "Wajib",
+        "explanation": "Qiyamuhu Binafsih ialah sifat ke-3 dalam sifat wajib bagi Allah SWT."
+    },
+    {
+        "id": 33,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Allah SWT memerlukan pertolongan malaikat untuk mentadbir langit dan bumi.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Salah",
+        "explanation": "Salah. Allah Maha Berkuasa dan tidak memerlukan bantuan sesiapa; malaikat hanya mentaati perintah-Nya."
+    },
+    {
+        "id": 34,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Surah Al-Ankabut ayat 6 menyatakan bahawa Allah SWT Maha Kaya (tidak berhajat) kepada sekalian alam.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Firman Allah menegaskan bahawa Allah Maha Kaya dan bebas daripada sebarang kebergantungan kepada makhluk."
+    },
+    {
+        "id": 35,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Lawan bagi sifat Qiyamuhu Binafsih ialah Qiyamuhu Bighairihi yang bererti berdiri dengan ...",
+        "options": [
+            "Bantuan orang lain",
+            "Kekuatan sendiri",
+            "Kebijaksanaan sendiri"
+        ],
+        "correct_answer": "Bantuan orang lain",
+        "explanation": "Mustahil bagi Allah berhajat kepada pertolongan selain-Nya (Qiyamuhu Bighairihi)."
+    },
+    {
+        "id": 36,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "objective",
+        "question_text": "Dalil aqli membuktikan bahawa sekiranya Allah SWT memerlukan bantuan, ini bermakna Allah...",
+        "options": [
+            "Lemah dan memerlukan sesuatu untuk menyempurnakan diri-Nya",
+            "Maha Bijaksana membahagikan tugas",
+            "Mempunyai kuasa tanpa had sempadan"
+        ],
+        "correct_answer": "Lemah dan memerlukan sesuatu untuk menyempurnakan diri-Nya",
+        "explanation": "Sesuatu yang memerlukan bantuan membuktikan ia tidak mampu melakukannya sendiri (lemah), dan sifat lemah mustahil bagi Allah."
+    },
+    {
+        "id": 37,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "true_false",
+        "question_text": "Manusia sentiasa berhajat kepada rezeki, udara dan pertolongan Allah pada setiap saat.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Seluruh makhluk bersifat fakir (amat berhajat) kepada rahmat dan pemeliharaan Allah SWT."
+    },
+    {
+        "id": 38,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "fill_in_the_blank",
+        "question_text": "Kefahaman tentang sifat Qiyamuhu Binafsih mendidik manusia agar menjauhi sikap ________ dan bangga diri.",
+        "options": [
+            "sombong",
+            "pemurah",
+            "sabar"
+        ],
+        "correct_answer": "sombong",
+        "explanation": "Menyedari diri sendiri sentiasa berhajat kepada pertolongan Allah mengikis sifat takbur dan sombong."
+    },
+    {
+        "id": 39,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Encik Razak seorang jutawan yang dermawan. Dia sentiasa bersolat dan memohon doa kepada Allah setiap hari tanpa rasa jemu. Mengapa?",
+        "options": [
+            "Kerana dia menginsafi bahawa kekayaannya hanyalah kurniaan Allah, dan dia tetap berhajat kepada Allah",
+            "Kerana dia takut perniagaannya diambil alih oleh pekerjanya",
+            "Kerana dia mahu penduduk kampung mengundinya sebagai ketua"
+        ],
+        "correct_answer": "Kerana dia menginsafi bahawa kekayaannya hanyalah kurniaan Allah, dan dia tetap berhajat kepada Allah",
+        "explanation": "Penghayatan sifat Qiyamuhu Binafsih menyedarkan manusia betapa kayanya seseorang, dia tetap kerdil dan memerlukan Allah Yang Maha Kaya."
+    },
+    {
+        "id": 40,
+        "topic_id": 4,
+        "topic_title": "Sifat Qiyamuhu Binafsih",
+        "topic_number": 4,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Mengapakah orang Islam diajar agar hanya berdoa dan memohon pertolongan hakiki kepada Allah semata-mata?",
+        "options": [
+            "Kerana hanya Allah yang tidak berhajat kepada apa-apa dan berkuasa mutlak memberi manfaat",
+            "Kerana makhluk tidak pandai bertutur bahasa Arab",
+            "Kerana berdoa kepada selain Allah memerlukan bayaran wang"
+        ],
+        "correct_answer": "Kerana hanya Allah yang tidak berhajat kepada apa-apa dan berkuasa mutlak memberi manfaat",
+        "explanation": "Hanya Allah Yang Maha Berdiri Sendiri yang berkuasa mengurniakan segala keperluan makhluk tanpa perantara yang berkuasa mandiri."
+    },
+    {
+        "id": 41,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Siapakah yang mencipta segala jenis haiwan di darat, air dan udara dengan penuh teliti?",
+        "options": [
+            "Allah SWT",
+            "Alam semula jadi semata-mata",
+            "Para saintis makmal"
+        ],
+        "correct_answer": "Allah SWT",
+        "explanation": "Semua makhluk bernyawa termasuk haiwan diciptakan oleh Allah Yang Maha Pencipta (Al-Khaliq)."
+    },
+    {
+        "id": 42,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "fill_in_the_blank",
+        "question_text": "Lebah dapat membina sarang heksagon yang kukuh dan menghasilkan madu kerana mendapat ________ daripada Allah.",
+        "options": [
+            "ilham",
+            "latihan manusia",
+            "buku panduan"
+        ],
+        "correct_answer": "ilham",
+        "explanation": "Surah An-Nahl menceritakan bahawa Allah mengilhamkan lebah kepintaran membina sarang dan menghasilkan madu yang berkhasiat."
+    },
+    {
+        "id": 43,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Ikan diciptakan Allah dengan insang bagi membolehkannya menyerap oksigen dan bernafas di dalam air.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Reka bentuk insang membuktikan ketelitian Allah mencipta organ yang sesuai dengan habitat hidupan."
+    },
+    {
+        "id": 44,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "true_false",
+        "question_text": "Burung terbang bermigrasi beribu-ribu batu tanpa sesat kerana mempunyai kompas semula jadi kurniaan Allah.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Sistem navigasi burung adalah salah satu bukti kekuasaan dan kebijaksanaan Allah Yang Maha Pengatur."
+    },
+    {
+        "id": 45,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "rendah",
+        "difficulty_label": "Rendah",
+        "type": "objective",
+        "question_text": "Antara nama Allah yang berkait rapat dengan penciptaan segala hidupan ialah Al-Khaliq yang bermaksud Maha ...",
+        "options": [
+            "Pencipta",
+            "Pemaaf",
+            "Mendengar"
+        ],
+        "correct_answer": "Pencipta",
+        "explanation": "Al-Khaliq bererti Maha Pencipta sekalian makhluk."
+    },
+    {
+        "id": 46,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "objective",
+        "question_text": "Semut hidup bekerjasama dalam koloni teratur dan mampu mengangkat beban berkali ganda berat badannya. Fakta ini membuktikan bahawa...",
+        "options": [
+            "Allah mencipta setiap makhluk dengan keistimewaan dan sistem tersendiri",
+            "Semut mempelajari kemahiran itu di sekolah khas semut",
+            "Semut mempunyai saiz otak yang lebih besar daripada gajah"
+        ],
+        "correct_answer": "Allah mencipta setiap makhluk dengan keistimewaan dan sistem tersendiri",
+        "explanation": "Kekuatan dan organisasi semut adalah bukti nyata hikmah serta kebijaksanaan penciptaan Allah SWT."
+    },
+    {
+        "id": 47,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "true_false",
+        "question_text": "Dalam Al-Quran, terdapat lebih daripada 20 jenis nama haiwan yang disebut seperti lebah, semut, gajah dan lembu.",
+        "options": [
+            "Benar",
+            "Salah"
+        ],
+        "correct_answer": "Benar",
+        "explanation": "Benar. Al-Quran menyebut pelbagai haiwan sebagai dalil dan perumpamaan untuk renungan akal manusia."
+    },
+    {
+        "id": 48,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "sederhana",
+        "difficulty_label": "Sederhana",
+        "type": "fill_in_the_blank",
+        "question_text": "Amalan memerhatikan keajaiban ciptaan haiwan untuk mengagumi kebesaran Allah dinamakan sebagai amalan ________.",
+        "options": [
+            "tafakur",
+            "berangan-angan",
+            "sukan"
+        ],
+        "correct_answer": "tafakur",
+        "explanation": "Tafakur bermaksud berfikir secara mendalam tentang tanda-tanda kebesaran ciptaan Allah SWT."
+    },
+    {
+        "id": 49,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Bagaimanakah kepelbagaian ciri haiwan (unta di padang pasir, beruang kutub di salji) membantah teori bahawa haiwan wujud secara kebetulan?",
+        "options": [
+            "Kerana setiap haiwan dilengkapi anatomi yang sangat tepat dan serasi dengan tempat tinggalnya, membuktikan wujudnya Perancang Maha Bijaksana",
+            "Kerana haiwan sendiri yang memilih untuk berpindah ke kutub utara",
+            "Kerana saintis yang meletakkan haiwan-haiwan tersebut di habitat masing-masing"
+        ],
+        "correct_answer": "Kerana setiap haiwan dilengkapi anatomi yang sangat tepat dan serasi dengan tempat tinggalnya, membuktikan wujudnya Perancang Maha Bijaksana",
+        "explanation": "Penyesuaian tubuh haiwan yang amat jitu dengan habitat membuktikan ciptaan ini dirancang rapi oleh Tuhan Yang Maha Mengetahui dan Maha Mengatur."
+    },
+    {
+        "id": 50,
+        "topic_id": 5,
+        "topic_title": "Islam dan Sains (Haiwan)",
+        "topic_number": 5,
+        "difficulty": "tinggi",
+        "difficulty_label": "Tinggi",
+        "type": "objective",
+        "question_text": "Setelah mempelajari tajuk penciptaan haiwan, apakah tindakan yang paling wajar diamalkan oleh seorang murid Tahun 3?",
+        "options": [
+            "Menyayangi haiwan, tidak menyeksa kucing jalanan serta bersyukur melihat keindahan ciptaan Allah",
+            "Mengurung burung di dalam sangkar tanpa diberi makan dan minum",
+            "Membaling batu ke arah sarang lebah untuk bergurau"
+        ],
+        "correct_answer": "Menyayangi haiwan, tidak menyeksa kucing jalanan serta bersyukur melihat keindahan ciptaan Allah",
+        "explanation": "Kefahaman akidah melahirkan rasa kasih sayang (ihsan) dan rahmah terhadap haiwan sebagai makhluk ciptaan Allah yang perlu disantuni."
+    }
+];
+        window.IS_STATIC_GITHUB_PAGES = true;
+    </script>
+
+    <!-- Quiz Engine Script -->
+    <script>
+        // State management
+        let allQuestions = [];
+        let currentIndex = 0;
+        let userAnswers = {}; // { questionIndex: { chosen: string, isCorrect: boolean } }
+        let isSoundEnabled = true;
+        let audioCtx = null;
+
+        // Sound Synthesizer using Web Audio API (Zero external assets, works reliably anywhere)
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    audioCtx = new AudioContext();
+                }
+            }
+        }
+
+        function playSound(type) {
+            if (!isSoundEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+                if (type === 'correct') {
+                    // Cheerful major chord arpeggio
+                    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                    notes.forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                        gain.gain.setValueAtTime(0.15, now + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.3);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.08);
+                        osc.stop(now + i * 0.08 + 0.3);
+                    });
+                } else if (type === 'wrong') {
+                    // Gentle soft low chime for constructive feedback
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(260, now);
+                    osc.frequency.exponentialRampToValueAtTime(180, now + 0.35);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'celebrate') {
+                    // Trumpet fanfare for 80% target
+                    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                    notes.forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.1);
+                        gain.gain.setValueAtTime(0.12, now + i * 0.1);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.4);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.1);
+                        osc.stop(now + i * 0.1 + 0.4);
+                    });
+                }
+            } catch (e) {
+                console.warn('Audio playback error', e);
+            }
+        }
+
+        function toggleAudio() {
+            isSoundEnabled = !isSoundEnabled;
+            document.getElementById('soundIcon').textContent = isSoundEnabled ? '🔊' : '🔇';
+            document.getElementById('soundText').textContent = isSoundEnabled ? 'Bunyi Aktif' : 'Bunyi Senyap';
+        }
+
+        // Start or Generate New Quiz Set
+                // Static GitHub Pages randomizer: 6 questions per topic (3 rendah, 2 sederhana, 1 tinggi) = 30 total
+        async function startQuiz() {
+            initAudio();
+            const btn = document.getElementById('btnJanaLatihan');
+            if (btn) {
+                btn.innerHTML = '<span>⚡</span><span>Menjana 30 Soalan...</span>';
+                btn.disabled = true;
+            }
+
+            if (window.ALL_QUESTIONS_BANK && window.ALL_QUESTIONS_BANK.length > 0) {
+                const bank = window.ALL_QUESTIONS_BANK;
+                const selected = [];
+
+                // Group by topic 1 to 5
+                for (let t = 1; t <= 5; t++) {
+                    const topicQuestions = bank.filter(q => q.topic_number === t);
+                    const rendah = topicQuestions.filter(q => q.difficulty === 'rendah').sort(() => 0.5 - Math.random()).slice(0, 3);
+                    const sederhana = topicQuestions.filter(q => q.difficulty === 'sederhana').sort(() => 0.5 - Math.random()).slice(0, 2);
+                    const tinggi = topicQuestions.filter(q => q.difficulty === 'tinggi').sort(() => 0.5 - Math.random()).slice(0, 1);
+                    selected.push(...rendah, ...sederhana, ...tinggi);
+                }
+
+                // Shuffle the 30 questions
+                allQuestions = selected.sort(() => 0.5 - Math.random()).map((q, idx) => ({
+                    ...q,
+                    number: idx + 1
+                }));
+            } else {
+                try {
+                    const res = await fetch('/api/generate-quiz');
+                    const data = await res.json();
+                    allQuestions = data.questions;
+                } catch(e) {
+                    console.error('Error loading questions', e);
+                }
+            }
+
+            if (btn) {
+                btn.innerHTML = '<span class="text-2xl">⚡</span><span>Jana Latihan</span>';
+                btn.disabled = false;
+            }
+
+            if (!allQuestions || allQuestions.length === 0) {
+                alert('Ralat semasa menjana soalan.');
+                return;
+            }
+
+            currentIndex = 0;
+            userAnswers = {};
+
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+
+            buildNavigatorGrid();
+            renderQuestion(0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Build the bottom 30 buttons navigator
+        function buildNavigatorGrid() {
+            const grid = document.getElementById('navigatorGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < allQuestions.length; i++) {
+                const btn = document.createElement('button');
+                btn.id = `navBtn_${i}`;
+                btn.className = `w-8 h-8 sm:w-9 sm:h-9 rounded-xl font-bold text-xs flex items-center justify-center transition border ${
+                    i === currentIndex
+                        ? 'bg-emerald-600 text-white border-emerald-700 ring-2 ring-emerald-300'
+                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                }`;
+                btn.textContent = i + 1;
+                btn.onclick = () => renderQuestion(i);
+                grid.appendChild(btn);
+            }
+        }
+
+        function updateNavigatorGrid() {
+            for (let i = 0; i < allQuestions.length; i++) {
+                const btn = document.getElementById(`navBtn_${i}`);
+                if (!btn) continue;
+
+                const ans = userAnswers[i];
+                if (ans) {
+                    if (ans.isCorrect) {
+                        btn.className = `w-8 h-8 sm:w-9 sm:h-9 rounded-xl font-bold text-xs flex items-center justify-center transition border ${
+                            i === currentIndex ? 'ring-2 ring-emerald-400 bg-emerald-600 text-white border-emerald-700' : 'bg-emerald-500 text-white border-emerald-600'
+                        }`;
+                    } else {
+                        btn.className = `w-8 h-8 sm:w-9 sm:h-9 rounded-xl font-bold text-xs flex items-center justify-center transition border ${
+                            i === currentIndex ? 'ring-2 ring-rose-400 bg-rose-600 text-white border-rose-700' : 'bg-rose-500 text-white border-rose-600'
+                        }`;
+                    }
+                } else {
+                    btn.className = `w-8 h-8 sm:w-9 sm:h-9 rounded-xl font-bold text-xs flex items-center justify-center transition border ${
+                        i === currentIndex
+                            ? 'bg-slate-800 text-white border-slate-900 ring-2 ring-slate-400'
+                            : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                    }`;
+                }
+            }
+        }
+
+        // Render current question
+        function renderQuestion(index) {
+            if (index < 0 || index >= allQuestions.length) return;
+            currentIndex = index;
+
+            const q = allQuestions[currentIndex];
+            const answered = userAnswers[currentIndex];
+
+            // Header indicators
+            document.getElementById('currentQuestionBadge').textContent = `Soalan ${currentIndex + 1} / ${allQuestions.length}`;
+            document.getElementById('topicBadge').textContent = `Topik ${q.topic_number}: ${q.topic_title}`;
+
+            // Difficulty badge
+            const diffBadge = document.getElementById('difficultyBadge');
+            diffBadge.textContent = `Aras ${q.difficulty_label || q.difficulty}`;
+            if (q.difficulty === 'rendah') {
+                diffBadge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+            } else if (q.difficulty === 'sederhana') {
+                diffBadge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
+            } else {
+                diffBadge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-300';
+            }
+
+            // Question type badge
+            const typeBadge = document.getElementById('typeBadge');
+            if (q.type === 'objective') {
+                typeBadge.textContent = 'Pilihan Jawapan (Objektif)';
+            } else if (q.type === 'true_false') {
+                typeBadge.textContent = 'Benar atau Salah';
+            } else {
+                typeBadge.textContent = 'Isi Tempat Kosong';
+            }
+
+            // Question text
+            document.getElementById('questionText').textContent = q.question_text;
+
+            // Render options
+            renderOptions(q, answered);
+
+            // Render feedback card if already answered
+            if (answered) {
+                showFeedback(answered.isCorrect, q.explanation, q.correct_answer);
+            } else {
+                document.getElementById('feedbackCard').classList.add('hidden');
+            }
+
+            // Prev / Next button states
+            document.getElementById('btnPrev').disabled = (currentIndex === 0);
+            const btnNextText = document.getElementById('btnNextText');
+            if (currentIndex === allQuestions.length - 1) {
+                btnNextText.textContent = 'Lihat Keputusan';
+            } else {
+                btnNextText.textContent = 'Soalan Seterusnya';
+            }
+
+            updateScoreTally();
+            updateNavigatorGrid();
+        }
+
+        // Render options depending on question type
+        function renderOptions(q, answered) {
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const isLocked = !!answered;
+            const chosen = answered ? answered.chosen : null;
+
+            if (q.type === 'true_false') {
+                // Two big cards for Benar and Salah
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+
+                ['Benar', 'Salah'].forEach((opt) => {
+                    const btn = document.createElement('button');
+                    btn.disabled = isLocked;
+                    const isSelected = (chosen === opt);
+                    const isThisCorrect = (q.correct_answer === opt);
+
+                    let baseStyle = 'p-5 rounded-2xl font-bold text-lg flex items-center justify-between border-2 transition text-left ';
+                    let icon = opt === 'Benar' ? '👍' : '👎';
+
+                    if (!isLocked) {
+                        baseStyle += 'bg-white hover:bg-slate-50 border-slate-200 text-slate-800 hover:border-emerald-400 cursor-pointer shadow-sm';
+                    } else {
+                        if (isSelected && isThisCorrect) {
+                            baseStyle += 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-md ring-2 ring-emerald-200';
+                            icon = '✅';
+                        } else if (isSelected && !isThisCorrect) {
+                            baseStyle += 'bg-rose-50 border-rose-500 text-rose-800 shadow-md ring-2 ring-rose-200';
+                            icon = '❌';
+                        } else if (!isSelected && isThisCorrect) {
+                            baseStyle += 'bg-emerald-50/50 border-emerald-300 text-emerald-700 border-dashed';
+                            icon = '💡 (Jawapan Tepat)';
+                        } else {
+                            baseStyle += 'bg-slate-50 border-slate-200 text-slate-400 opacity-60';
+                        }
+                    }
+
+                    btn.className = baseStyle;
+                    btn.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${opt === 'Benar' ? '🟢' : '🔴'}</span>
+                            <span>${opt}</span>
+                        </div>
+                        <span class="text-xl">${icon}</span>
+                    `;
+                    btn.onclick = () => handleAnswerSelect(opt);
+                    grid.appendChild(btn);
+                });
+                container.appendChild(grid);
+
+            } else {
+                // Objective (A, B, C) or Fill In The Blank choices
+                const letterPrefixes = ['A', 'B', 'C', 'D'];
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.disabled = isLocked;
+                    const isSelected = (chosen === opt);
+                    const isThisCorrect = (q.correct_answer === opt);
+                    const prefix = letterPrefixes[idx] || (idx + 1);
+
+                    let baseStyle = 'w-full p-4 sm:p-4.5 rounded-2xl font-semibold text-base flex items-center justify-between border-2 transition text-left ';
+
+                    if (!isLocked) {
+                        baseStyle += 'bg-white hover:bg-slate-50 border-slate-200 text-slate-800 hover:border-emerald-400 cursor-pointer shadow-sm';
+                    } else {
+                        if (isSelected && isThisCorrect) {
+                            baseStyle += 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-md ring-2 ring-emerald-200 font-bold';
+                        } else if (isSelected && !isThisCorrect) {
+                            baseStyle += 'bg-rose-50 border-rose-500 text-rose-900 shadow-md ring-2 ring-rose-200';
+                        } else if (!isSelected && isThisCorrect) {
+                            baseStyle += 'bg-emerald-50/50 border-emerald-400 text-emerald-800 border-dashed font-bold';
+                        } else {
+                            baseStyle += 'bg-slate-50 border-slate-200 text-slate-400 opacity-50';
+                        }
+                    }
+
+                    let rightBadge = '';
+                    if (isLocked) {
+                        if (isSelected && isThisCorrect) {
+                            rightBadge = '<span class="text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1">✅ Pilihan Anda (Tepat)</span>';
+                        } else if (isSelected && !isThisCorrect) {
+                            rightBadge = '<span class="text-rose-700 bg-rose-100 px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1">❌ Pilihan Anda (Kurang Tepat)</span>';
+                        } else if (!isSelected && isThisCorrect) {
+                            rightBadge = '<span class="text-emerald-800 bg-emerald-100/70 px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1">💡 Jawapan Sebenar</span>';
+                        }
+                    }
+
+                    btn.className = baseStyle;
+                    btn.innerHTML = `
+                        <div class="flex items-center gap-3.5 pr-2">
+                            <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-700'} font-bold text-sm flex items-center justify-center flex-shrink-0">
+                                ${prefix}
+                            </span>
+                            <span class="leading-relaxed">${opt}</span>
+                        </div>
+                        ${rightBadge}
+                    `;
+                    btn.onclick = () => handleAnswerSelect(opt);
+                    container.appendChild(btn);
+                });
+            }
+        }
+
+        // Handle answer selection with immediate feedback
+        function handleAnswerSelect(selectedOption) {
+            const q = allQuestions[currentIndex];
+            const isCorrect = (selectedOption === q.correct_answer);
+
+            userAnswers[currentIndex] = {
+                chosen: selectedOption,
+                isCorrect: isCorrect
+            };
+
+            // Play sound effect
+            if (isCorrect) {
+                playSound('correct');
+            } else {
+                playSound('wrong');
+            }
+
+            // Re-render options to show states
+            renderOptions(q, userAnswers[currentIndex]);
+
+            // Show feedback card
+            showFeedback(isCorrect, q.explanation, q.correct_answer);
+
+            updateScoreTally();
+            updateNavigatorGrid();
+        }
+
+        // Display feedback explanation
+        function showFeedback(isCorrect, explanation, correctAnswer) {
+            const card = document.getElementById('feedbackCard');
+            const icon = document.getElementById('feedbackIcon');
+            const title = document.getElementById('feedbackTitle');
+            const expl = document.getElementById('feedbackExplanation');
+            const answerWrap = document.getElementById('feedbackCorrectAnswerWrap');
+            const answerText = document.getElementById('feedbackCorrectAnswerText');
+
+            card.classList.remove('hidden');
+
+            if (isCorrect) {
+                card.className = 'rounded-2xl p-5 border bg-emerald-50 border-emerald-300 text-emerald-900 shadow-sm';
+                icon.textContent = '🎉';
+                title.textContent = 'Tahniah! Jawapan Anda Tepat!';
+                title.className = 'text-lg font-extrabold text-emerald-800';
+                expl.className = 'text-sm text-emerald-800 leading-relaxed';
+                expl.innerHTML = `<strong>Keterangan:</strong> ${explanation}`;
+                answerWrap.classList.add('hidden');
+            } else {
+                card.className = 'rounded-2xl p-5 border bg-rose-50 border-rose-300 text-rose-900 shadow-sm';
+                icon.textContent = '💡';
+                title.textContent = 'Kurang Tepat, Mari Fahami Semula:';
+                title.className = 'text-lg font-extrabold text-rose-800';
+                expl.className = 'text-sm text-rose-800 leading-relaxed';
+                expl.innerHTML = `<strong>Sebab & Penerangan:</strong> ${explanation}`;
+                answerWrap.classList.remove('hidden');
+                answerText.textContent = correctAnswer;
+            }
+        }
+
+        // Next / Prev Navigation
+        function navigateQuestion(direction) {
+            const nextIdx = currentIndex + direction;
+            if (nextIdx >= 0 && nextIdx < allQuestions.length) {
+                renderQuestion(nextIdx);
+                window.scrollTo({ top: 100, behavior: 'smooth' });
+            } else if (nextIdx >= allQuestions.length) {
+                // Finish quiz and evaluate against 80% target
+                finishQuiz();
+            }
+        }
+
+        // Live score tally
+        function updateScoreTally() {
+            let correct = 0;
+            let wrong = 0;
+            const answeredCount = Object.keys(userAnswers).length;
+
+            for (const key in userAnswers) {
+                if (userAnswers[key].isCorrect) correct++;
+                else wrong++;
+            }
+
+            document.getElementById('tallyCorrect').textContent = correct;
+            document.getElementById('tallyWrong').textContent = wrong;
+
+            const total = allQuestions.length || 30;
+            const progressPct = ((currentIndex + 1) / total) * 100;
+            document.getElementById('quizProgressBar').style.width = `${progressPct}%`;
+            document.getElementById('answeredStatusText').textContent = `${answeredCount} daripada ${total} soalan dijawab`;
+
+            const currentPct = answeredCount > 0 ? Math.round((correct / answeredCount) * 100) : 0;
+            document.getElementById('currentScorePercentageText').textContent = `Ketepatan Semasa: ${currentPct}%`;
+        }
+
+        // Finish and evaluate against 80% target
+        function finishQuiz() {
+            let correct = 0;
+            let wrong = 0;
+            const total = allQuestions.length || 30;
+
+            const topicStats = {};
+
+            allQuestions.forEach((q, i) => {
+                const topicKey = `Topik ${q.topic_number}: ${q.topic_title}`;
+                if (!topicStats[topicKey]) {
+                    topicStats[topicKey] = { correct: 0, total: 0 };
+                }
+                topicStats[topicKey].total++;
+
+                const ans = userAnswers[i];
+                if (ans && ans.isCorrect) {
+                    correct++;
+                    topicStats[topicKey].correct++;
+                } else {
+                    wrong++;
+                }
+            });
+
+            const percentage = Math.round((correct / total) * 100);
+            const targetMet = (percentage >= 80);
+
+            // Populate Results UI
+            document.getElementById('resTotalCorrect').textContent = correct;
+            document.getElementById('resPercentage').textContent = `${percentage}%`;
+
+            const iconWrap = document.getElementById('resultIconWrapper');
+            const targetPill = document.getElementById('resultTargetPill');
+            const title = document.getElementById('resultTitle');
+            const subtitle = document.getElementById('resultSubtitle');
+            const grade = document.getElementById('resGrade');
+            const gradeDesc = document.getElementById('resGradeDesc');
+            const btnTryAgainText = document.getElementById('btnTryAgainText');
+
+            if (targetMet) {
+                // Success: >= 80%
+                playSound('celebrate');
+                // Confetti fireworks!
+                if (window.confetti) {
+                    confetti({
+                        particleCount: 120,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+
+                iconWrap.className = 'w-24 h-24 mx-auto rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-5xl shadow-lg shadow-emerald-200 border-2 border-emerald-300';
+                iconWrap.textContent = '🏆';
+                targetPill.className = 'inline-block text-xs font-extrabold uppercase px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+                targetPill.textContent = '🎯 SASARAN TERCAPAI (≥ 80%)';
+                title.textContent = 'TAHNIAH! ANDA CEMERLANG!';
+                subtitle.textContent = `Syabas! Anda berjaya melepasi sasaran 80% dengan ketepatan ${percentage}%. Penguasaan Akidah Tahun 3 anda amat membanggakan!`;
+                grade.textContent = percentage >= 90 ? 'Mumtaz' : 'Jayyid Jiddan';
+                grade.className = 'text-3xl sm:text-4xl font-extrabold text-emerald-600';
+                gradeDesc.textContent = 'Cemerlang';
+                btnTryAgainText.textContent = 'Uji Diri Lagi (Set Soalan Lain)';
+            } else {
+                // Not achieved: < 80%
+                playSound('wrong');
+                iconWrap.className = 'w-24 h-24 mx-auto rounded-3xl bg-amber-100 text-amber-600 flex items-center justify-center text-5xl shadow-lg shadow-amber-200 border-2 border-amber-300';
+                iconWrap.textContent = '💪';
+                targetPill.className = 'inline-block text-xs font-extrabold uppercase px-3.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
+                targetPill.textContent = '🎯 SASARAN BELUM TERCAPAI (Perlu ≥ 80%)';
+                title.textContent = 'JANGAN BERPUTUS ASA!';
+                subtitle.textContent = `Anda memperoleh ${percentage}% (${correct} / ${total}). Sasaran minimum adalah 80% (24 soalan betul). Teruskan usaha dan cuba lagi dengan set soalan baharu!`;
+                grade.textContent = percentage >= 60 ? 'Jayyid' : 'Maqbul';
+                grade.className = 'text-3xl sm:text-4xl font-extrabold text-amber-600';
+                gradeDesc.textContent = 'Perlu Pemantapan';
+                btnTryAgainText.textContent = '🔄 Cuba Lagi Sekarang (Set Soalan Lain)';
+            }
+
+            // Render Topic Breakdown
+            const breakdownContainer = document.getElementById('topicBreakdownContainer');
+            breakdownContainer.innerHTML = '';
+            for (const topic in topicStats) {
+                const s = topicStats[topic];
+                const pct = Math.round((s.correct / s.total) * 100);
+                const row = document.createElement('div');
+                row.className = 'p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between text-xs sm:text-sm';
+                row.innerHTML = `
+                    <span class="font-semibold text-slate-700 truncate max-w-[200px] sm:max-w-xs">${topic}</span>
+                    <div class="flex items-center gap-3">
+                        <span class="font-bold ${pct >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${s.correct} / ${s.total} (${pct}%)</span>
+                        <div class="w-16 bg-slate-100 rounded-full h-2 hidden sm:block">
+                            <div class="${pct >= 80 ? 'bg-emerald-500' : 'bg-amber-400'} h-2 rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+                breakdownContainer.appendChild(row);
+            }
+
+            // Switch to Result Screen
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Review mode
+        function reviewAllAnswers() {
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            renderQuestion(0);
+        }
+    </script>
+</body>
+</html>
+

@@ -21,7 +21,7 @@ class ExportStaticQuiz extends Command
      *
      * @var string
      */
-    protected $description = 'Export all 50 questions and quiz application into a standalone static site in docs/ for GitHub Pages';
+    protected $description = 'Export all 50 questions and quiz application into standalone static index.html and docs/index.html for GitHub Pages';
 
     /**
      * Execute the console command.
@@ -56,7 +56,7 @@ class ExportStaticQuiz extends Command
             File::makeDirectory($docsDir, 0755, true);
         }
 
-        // Generate docs/index.html using the template
+        // Generate static HTML using quiz/index.blade.php template
         $questionsJson = json_encode($allQuestions, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         
         $bladePath = resource_path('views/quiz/index.blade.php');
@@ -139,13 +139,16 @@ JS;
             $html
         );
 
+        // Save to BOTH root index.html AND docs/index.html
+        File::put(base_path('index.html'), $html);
         File::put($docsDir . '/index.html', $html);
 
-        // Also create a .nojekyll file in docs so GitHub Pages serves raw files without Jekyll processing
+        // Create .nojekyll in root and docs
+        File::put(base_path('.nojekyll'), '');
         File::put($docsDir . '/.nojekyll', '');
 
-        $this->info("Successfully generated docs/index.html with " . count($allQuestions) . " questions!");
-        $this->info("GitHub Pages can now be hosted directly from the /docs folder on branch main!");
+        $this->info("Successfully generated root index.html and docs/index.html with " . count($allQuestions) . " questions!");
+        $this->info("GitHub Pages will now serve the interactive app immediately from root / OR /docs!");
 
         return Command::SUCCESS;
     }
